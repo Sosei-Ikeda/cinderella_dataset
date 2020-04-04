@@ -1,0 +1,3 @@
+Pillow
+azure-cognitiveservices-vision-face
+opencv-python
