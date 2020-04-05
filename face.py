@@ -41,17 +41,16 @@ def crop_face(imageUrl,x,y,l):
 
 image_url_array = [file for file in glob.glob('*.jpg')]
 
-for i in range(175,len(image_url_array)):
-    rawimg = cv2.imread(image_url_array[i])
-    cv2.imwrite(f'rawimg/{i}.jpg', rawimg)
+for i in range(59,len(image_url_array)):
     detected_faces = face_client.face.detect_with_url(url="https://raw.githubusercontent.com/Sosei-Ikeda/cinderella_dataset/master/"+image_url_array[i], detection_model='detection_02')
     if not detected_faces:
         print(f'No face detected from this image : {image_url_array[i]}')
     else:
-        for face in detected_faces:
-            left, top, length = face_position(face)
-            cropped_face = crop_face(image_url_array[i],left,top,length)
-            cv2.imwrite(f'img/{i}.jpg', cropped_face)
+        rawimg = cv2.imread(image_url_array[i])
+        cv2.imwrite(f'rawimg/{i}.jpg', rawimg)
+        left, top, length = face_position(detected_faces[0])
+        cropped_face = crop_face(image_url_array[i],left,top,length)
+        cv2.imwrite(f'img/{i}.jpg', cropped_face)
 
 #i = 141
 #detected_faces = face_client.face.detect_with_url(url="https://raw.githubusercontent.com/Sosei-Ikeda/cinderella_face/master/"+image_url_array[i], detection_model='detection_02')
